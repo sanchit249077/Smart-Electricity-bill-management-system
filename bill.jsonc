@@ -1,0 +1,130 @@
+{
+  "name": "Bill",
+  "type": "object",
+  "properties": {
+    "customer_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    },
+    "bill_number": {
+      "type": "string"
+    },
+    "billing_period_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "billing_period_end": {
+      "type": "string",
+      "format": "date"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "units_consumed": {
+      "type": "number"
+    },
+    "solar_units_exported": {
+      "type": "number",
+      "default": 0
+    },
+    "net_units": {
+      "type": "number"
+    },
+    "fixed_charges": {
+      "type": "number"
+    },
+    "energy_charges": {
+      "type": "number"
+    },
+    "gst": {
+      "type": "number"
+    },
+    "total_amount": {
+      "type": "number"
+    },
+    "amount_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "unpaid",
+        "partially_paid",
+        "paid",
+        "overdue"
+      ],
+      "default": "unpaid"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "residential",
+        "agricultural",
+        "industrial"
+      ],
+      "default": "residential"
+    }
+  },
+  "required": [
+    "customer_id",
+    "bill_number",
+    "units_consumed",
+    "total_amount"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.customer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

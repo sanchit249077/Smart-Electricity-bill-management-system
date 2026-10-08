@@ -1,0 +1,99 @@
+{
+  "name": "Outage",
+  "type": "object",
+  "properties": {
+    "area": {
+      "type": "string"
+    },
+    "reported_by": {
+      "type": "string"
+    },
+    "reported_by_name": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "resolved"
+      ],
+      "default": "active"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "affected_customers": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "area",
+    "start_time"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.reported_by": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

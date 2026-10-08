@@ -1,0 +1,88 @@
+{
+  "name": "SolarData",
+  "type": "object",
+  "properties": {
+    "customer_id": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "units_generated": {
+      "type": "number"
+    },
+    "units_exported": {
+      "type": "number",
+      "default": 0
+    },
+    "units_imported": {
+      "type": "number",
+      "default": 0
+    },
+    "savings": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "customer_id",
+    "month",
+    "year",
+    "units_generated"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.customer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

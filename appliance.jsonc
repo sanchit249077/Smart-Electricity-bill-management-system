@@ -1,0 +1,68 @@
+{
+  "name": "Appliance",
+  "type": "object",
+  "properties": {
+    "customer_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ac",
+        "fan",
+        "tv",
+        "refrigerator",
+        "washing_machine",
+        "heater",
+        "other"
+      ]
+    },
+    "wattage": {
+      "type": "number"
+    },
+    "hours_per_day": {
+      "type": "number"
+    },
+    "monthly_units": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "customer_id",
+    "name",
+    "type",
+    "wattage",
+    "hours_per_day"
+  ],
+  "rls": {
+    "create": {
+      "data.customer_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.customer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "staff"
+          }
+        }
+      ]
+    },
+    "update": {
+      "data.customer_id": "{{user.id}}"
+    },
+    "delete": {
+      "data.customer_id": "{{user.id}}"
+    }
+  }
+}
