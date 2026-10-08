@@ -10,9 +10,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
     "preview": "vite preview",
-    "validate": "node scripts/validate.mjs",
-    "codespace:start": "npx --yes base44@latest dev",
-    "codespace:validate": "npm run validate && npm run build"
+    "validate": "node scripts/validate.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.52",

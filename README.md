@@ -1,4 +1,6 @@
-# Base44 Project
+# Smart Electricity Bill Management System
+
+**Created by Sanchit Nayyar**
 
 Use this repository to run and edit the app locally, then publish changes back through Base44.
 
@@ -16,15 +18,20 @@ Run `base44 --help` (or see the [CLI reference](https://docs.base44.com/develope
 
 ## Run Locally
 
-Three commands, from the project root:
+From the repository root in GitHub Codespaces:
 
 ```bash
-base44 login   # one-time per machine
-base44 link    # one-time per clone
-base44 dev     # local backend + frontend together
+npm install
+npx --yes base44@latest login   # one-time per Codespace/user
+npx --yes base44@latest link    # choose the existing SmartPower app
+npm run validate
+npm run build
+npm run codespace:start       # full-stack local Base44 backend + frontend
 ```
 
-Open the frontend URL that `base44 dev` prints (typically `http://localhost:5173`).
+**Do not run `cd smartpower` when the repository itself is already the project root.**
+
+Open the forwarded application port that Codespaces shows after `npm run codespace:start`.
 
 Notes:
 
@@ -81,39 +88,7 @@ Local development: [https://docs.base44.com/developers/backend/overview/local-de
 
 Support: [https://app.base44.com/support](https://app.base44.com/support)
 
-## GitHub Codespaces
 
-This repository is intentionally kept free of hidden configuration files so it can be uploaded directly to GitHub without extra dotfiles. GitHub Codespaces can use its standard Node.js environment for this project.
+## Repository layout
 
-### Open in Codespaces
-
-1. Push this repository to GitHub.
-2. On GitHub, choose **Code → Codespaces → Create codespace on main**.
-3. In the Codespace terminal, run:
-
-```bash
-npm install
-base44 login
-base44 link
-npm run codespace:start
-```
-
-`base44 link` creates the local app-link file used by the Base44 CLI. Keep that generated file out of source control.
-
-For frontend-only work against the hosted Base44 backend, use:
-
-```bash
-npx --yes base44@latest dev --remote
-```
-
-For the local full-stack environment, use:
-
-```bash
-npm run codespace:start
-```
-
-Do not use `npm run dev` for full-stack testing because it starts Vite without the Base44 backend proxy.
-
----
-
-**Created by Sanchit Nayyar**
+This distribution is intentionally kept below 100 files and contains no hidden files or hidden directories.
