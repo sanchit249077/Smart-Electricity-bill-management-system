@@ -1,0 +1,73 @@
+{
+  "name": "Tariff",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "residential",
+        "agricultural",
+        "industrial"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "slabs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "number"
+          },
+          "to": {
+            "type": "number"
+          },
+          "rate": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "fixed_charges": {
+      "type": "number"
+    },
+    "gst_rate": {
+      "type": "number",
+      "default": 0.18
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "category",
+    "name",
+    "slabs",
+    "fixed_charges"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
